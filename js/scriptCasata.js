@@ -1,19 +1,21 @@
 const stampa = () => {
     let elenco = JSON.parse( localStorage.getItem('oggetti_casate') );
+    
 
     let stringaTabella = '';
     for(let [idx, item] of elenco.entries()){
         stringaTabella += `
-            <tr>
+        <tr class="position-relative text-white">
                 <td>${idx + 1}</td>
-                <td>${item.nome}</td>
-                <td>${item.descrizione}</td>
-                <td>${item.quantita}</td>
-                <td>
-                    <img  src='${item.logo}' width="100" height="50" alt='immagine bacchetta' />
+                <td class="">
+                     <img  class="align-middle img-logo    position-relative" src='${item.logo}'  alt='immagine bacchetta' />
                 </td>
-                <td class="text-right">
-                    <button class="btn btn-outline-warning" onclick="modificaCasata(${idx})">
+                <td class="align-middle">${item.nome}</td>
+                <td class="align-middle">${item.descrizione}</td>
+                <td class="align-middle">${item.quantita}</td>
+               
+                <td class="text-right align-middle">
+                    <button class="btn btn-outline-info" onclick="modificaCasata(${idx})">
                         <i class="fa-solid fa-pencil"></i>
                     </button>
                     <button class="btn btn-outline-danger" onclick="elimina(${idx})">
@@ -30,13 +32,13 @@ const stampa = () => {
 const salvaCasata = () => {
     let nome = document.getElementById("select-nome").value;
     let descrizione = document.getElementById("input-descrizione").value;
-    let quantita = document.getElementById("input-quantita").value;
+    // let quantita = document.getElementById("input-quantita").value;
     let logo = document.getElementById("input-logo").value;
 
     let ogg = {
        nome,
        descrizione,
-       quantita,
+    //    quantita,
        logo
     }
     console.log(ogg);
@@ -49,12 +51,14 @@ const salvaCasata = () => {
 
     document.getElementById("select-nome").value = "";
     document.getElementById("input-descrizione").value = "";
-    document.getElementById("input-quantita").value = "";
+  
     document.getElementById("input-logo").value = "";
   
     stampa();
+    console.log(elenco)
 
     $("#modaleInserimentoCasata").modal("hide");
+    
 }
 
 const elimina = (indice) => {
@@ -72,7 +76,6 @@ const modificaCasata = (indice) => {
 
     document.getElementById("update-nome").value = elenco[indice].nome;
     document.getElementById("update-descrizione").value = elenco[indice].descrizione;
-    document.getElementById("update-quantita").value = elenco[indice].quantita;
     document.getElementById("update-logo").value = elenco[indice].logo;
 
 
@@ -84,13 +87,11 @@ const modificaCasata = (indice) => {
 const updateCasata = () => {
     let nome = document.getElementById("update-nome").value;
     let descrizione = document.getElementById("update-descrizione").value;
-    let quantita = document.getElementById("update-quantita").value;
     let logo = document.getElementById("update-logo").value;
   
     let ogg = {
        nome,
        descrizione,
-       quantita,
        logo
     }
 
@@ -104,13 +105,26 @@ const updateCasata = () => {
 }
 
 
-//Creazione elenco se non esiste
-let elencoString = localStorage.getItem('oggetti_casate');
-if(!elencoString)
-    localStorage.setItem('oggetti_casate', JSON.stringify([]) );
+const inizializzaCasate = () => {
+    let elenco = JSON.parse(localStorage.getItem('oggetti_casate'));
+    if (!elenco || elenco.length === 0) {
+        // imizializza le 4 casate
+        let defaultCasate = [
+            { nome: "Gryffindor", descrizione: "Courage and bravery", quantita: 0, logo: "./immagini/gryffindor.png"},
+            { nome: "Hufflepuff", descrizione: "Hard work and loyalty", quantita: 0, logo: "./immagini/hufflepuff.png" },
+            { nome: "Ravenclaw", descrizione: "Wit and learning", quantita: 0, logo: "./immagini/ravenclaw.png" },
+            { nome: "Slytherin", descrizione: "Ambition and cunning", quantita: 0, logo: "./immagini/slytherin.png" }
+        ];
+        localStorage.setItem('oggetti_casate', JSON.stringify(defaultCasate));
+        elenco = defaultCasate;
+    }
+    return elenco;
+}
 
-// setInterval(() => {
-//     stampa(); 
-// }, 5000);
+inizializzaCasate();
+
+setInterval(() => {
+    stampa(); 
+}, 5000);
 
 stampa(); 

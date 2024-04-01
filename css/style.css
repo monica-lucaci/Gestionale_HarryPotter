@@ -1,0 +1,69 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999; /* Ensure navbar is above the video background */
+
+}
+
+.transparent-navbar {
+    background-color: black !important;
+    opacity:70%;
+    margin-bottom: 10px;
+    box-shadow: 10px 1px 40px 5px #0ff
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden; */
+    z-index: -1; /* Set z-index to ensure it's behind the navbar */
+    background-size: cover;
+
+}
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%);
+    z-index: -1;
+}
+
+.video-background video,
+ .video-background img{
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+}
+
+.content {
+    position:relative;
+    margin-top: 110px;
+  ; /* Adjust max-height to fit remaining space */
+}
+
+.img-bacchetta {
+    border-radius: 15px;
+    min-width: 50px;
+    width:50px;
+    height:150px;
+    max-height: 150px;
+   
+}
+
+.img-logo {
+    border-radius: 15px;
+    max-width: 40px;
+    width:40px;
+    height:200px;
+    max-height: 200px;
+   
+}
